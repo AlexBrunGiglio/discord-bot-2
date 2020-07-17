@@ -5,6 +5,7 @@ const bot = new Discord.Client({disableEveryone: true});
 
 let mutedChannels = [];
 let modRoleID = "234313412102979586"; // Make sure to replace this number with moderator role id for your server.
+let everyoneID = "421015013147279362";
 let mutedMembers = [];
 
 let rulesEmbed = new Discord.MessageEmbed();
@@ -280,6 +281,28 @@ bot.on("message", async message => {
             })
 
             message.guild.channels.create(randomChannelName, { type: 'voice', userLimit: '2' });
+        }
+
+        if(message.content.startsWith(commandPrefix + "membre")){
+            if(message.member.hasPermission("ADMINISTRATOR")){
+                reason = message.content.split(":")
+                reason = reason[1]
+                const messageMembre = new Discord.MessageEmbed()
+                            .setTitle("Message des admins")
+                            .setColor("#f58a42")
+                            .setDescription(reason)
+                            .setThumbnail('https://media.discordapp.net/attachments/416477999698018314/689834041326698627/t.gif?width=465&height=465')
+                            .setFooter(message.author.username)
+                            .setTimestamp()
+
+                message.channel.send("Bonjour, " + message.author.toString() + ". Votre demande a été transmise aux membres du serveur.")
+
+                message.guild.members.cache.forEach( (member) => {
+                    if(member.roles.cache.has(everyoneID)) {
+                        member.send(messageMembre);
+                    }
+                })
+            }
         }
 
         if(message.content.startsWith(commandPrefix + "mute")){
