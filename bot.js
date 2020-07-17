@@ -5,7 +5,7 @@ const bot = new Discord.Client({disableEveryone: true});
 
 let mutedChannels = [];
 let modRoleID = "234313412102979586"; // Make sure to replace this number with moderator role id for your server.
-let everyoneID = "421015013147279362";
+let everyoneID = "234300184123801601";
 let mutedMembers = [];
 
 let rulesEmbed = new Discord.MessageEmbed();
